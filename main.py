@@ -1,8 +1,15 @@
 import random
 
 
-def password_append(adjective, nouns, number1, number2):
-    result = adjective + nouns + number1 + number2
+def password_append(difficulty, adjective, nouns, number1, number2, special1, special2):
+    if difficulty == 4:  # Extreme password with special case at start and random capitalization
+        result = special1 + adjective + nouns + number1 + number2 + special2
+    if difficulty == 3:  # Extreme password with special case in between adj and noun along with random capitalization
+        result = adjective + special1 + nouns + number1 + number2 + special2
+    if difficulty == 2:  # Hard password with special case at the end and caps adj and noun
+        result = adjective + nouns + number1 + number2 + special1
+    if difficulty == 1:  # Easy password with cap adj and noun
+        result = adjective + nouns + number1 + number2
     return result
 
 
@@ -16,25 +23,19 @@ def random_caps(str):
     return result
 
 
-def pass_hard(ex, pass_adjective, pass_nouns, pass_number1, pass_number2, pass_special, pass_special2):
+def pass_extr(pass_adjective, pass_nouns, pass_number1, pass_number2, pass_special, pass_special2):
     start_or_center_choice = [0, 1]
     start_or_center = random.choice(start_or_center_choice)
-    if ex == 1:
-        pass_adjective = random_caps(pass_adjective)
-        pass_nouns = random_caps(pass_nouns)
-        if start_or_center == 0:
-            hard_password = pass_special2 + pass_adjective + pass_nouns + pass_number1 + pass_number2 + pass_special
-            return hard_password
-        elif start_or_center == 1:
-            hard_password = pass_adjective + pass_special2 + pass_nouns + pass_number1 + pass_number2 + pass_special
-            return hard_password
-    elif ex == 0:
-        if start_or_center == 0:
-            hard_password = pass_special2 + pass_adjective + pass_nouns + pass_number1 + pass_number2 + pass_special
-            return hard_password
-        elif start_or_center == 1:
-            hard_password = pass_adjective + pass_special2 + pass_nouns + pass_number1 + pass_number2 + pass_special
-            return hard_password
+    pass_adjective = random_caps(pass_adjective)
+    pass_nouns = random_caps(pass_nouns)
+    if start_or_center == 0:
+        extr_password = password_append(4, pass_adjective, pass_nouns, pass_number1, pass_number2, pass_special,
+                                        pass_special2)
+        return extr_password
+    elif start_or_center == 1:
+        extr_password = password_append(3, pass_adjective, pass_nouns, pass_number1, pass_number2, pass_special,
+                                        pass_special2)
+        return extr_password
 
 
 def password_generate(choice):
@@ -44,22 +45,21 @@ def password_generate(choice):
                     "Accountant", "Company", "Flower", "Invention", "Knowledge", "Distance"]
     numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
     special = ["!", "?", "/", "$", "%", "(", ")", "[", "]", ",", "."]
-    int_input = [1, 2, 3]
     pass_adjective = random.choice(adjectives_choices)
     pass_nouns = random.choice(noun_choices)
     pass_number1 = random.choice(numbers)
     pass_number2 = random.choice(numbers)
     pass_special = random.choice(special)
     pass_special2 = random.choice(special)
-    pass_result = pass_adjective + pass_nouns + pass_number1 + pass_number2 + pass_special
-    if choice == 2:
-        hard_password = pass_hard(1, pass_adjective, pass_nouns, pass_number1, pass_number2, pass_special, pass_special2)
+    if choice == 2:  # Extreme Password
+        extr_password = pass_extr(pass_adjective, pass_nouns, pass_number1, pass_number2, pass_special,
+                                  pass_special2)
+        return extr_password
+    elif choice == 1:  # Hard Password
+        hard_password = password_append(2, pass_adjective, pass_nouns, pass_number1, pass_number2, pass_special, '')
         return hard_password
-    elif choice == 1:
-        return pass_result
-    elif choice == 0:
-        hard_password = pass_hard(0, pass_adjective, pass_nouns, pass_number1, pass_number2, pass_special, pass_special2)
-        return hard_password
+    elif choice == 0:  # Easy Pasword
+        return password_append(1, pass_adjective, pass_nouns, pass_number1, pass_number2, '', '')
 
 
 if __name__ == '__main__':
@@ -72,9 +72,9 @@ if __name__ == '__main__':
             user_choice = str(input("Would you like to generate a Hard or Easy password?: "))
         if user_choice == "Extreme" or user_choice == "extreme":
             password = password_generate(2)
-        elif user_choice == "Easy" or user_choice == "easy":
-            password = password_generate(1)
         elif user_choice == "Hard" or user_choice == "hard":
+            password = password_generate(1)
+        elif user_choice == "Easy" or user_choice == "easy":
             password = password_generate(0)
         print(password)
         user_loop = str(input("Would you like to generate another password? (Yes or No): "))
@@ -83,3 +83,9 @@ if __name__ == '__main__':
             user_loop = str(input("Would you like to generate another password? (Yes or No): "))
         if user_loop == 'No' or user_loop == 'no':
             break
+
+
+a = int(input('Enter 1st number: '))
+b = int(input('Enter 2nd number: '))
+
+print(f'Sum of {a} and {b} is {sum(a, b)}')
