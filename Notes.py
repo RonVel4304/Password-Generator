@@ -14,7 +14,7 @@
 # Finished ^
 
 # Bug: After an invalid user input, input is always considered incorrect even when it's fine
-# Fixed ^ using print(user_choice) in --while user_choice not in password_choices:--
+# Fixed ^ using --print(user_choice)-- in --while user_choice not in password_choices:--
 # Accidentally used user_loop instead of user_choice
 
 # Turn it into a functioning program window :OOOO
