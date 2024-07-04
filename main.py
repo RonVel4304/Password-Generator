@@ -69,7 +69,7 @@ if __name__ == '__main__':
         user_choice = str(input("Would you like to generate an Extreme, Hard, or Easy password?: "))
         while user_choice not in password_choices:
             print("Invalid input, try again")
-            user_choice = str(input("Would you like to generate a Hard or Easy password?: "))
+            user_choice = str(input("Would you like to generate an Extreme, Hard, or Easy password?: "))
         if user_choice == "Extreme" or user_choice == "extreme":
             password = password_generate(2)
         elif user_choice == "Hard" or user_choice == "hard":
