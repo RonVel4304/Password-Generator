@@ -64,17 +64,19 @@ def password_generate(choice):
 
 if __name__ == '__main__':
     while True:
-        password_choices = ["Extreme", "extreme", "Hard", "hard", "Easy", "easy"]
+        password_choices = ["extreme", "hard", "easy"]
         loop_choices = ["Yes", "yes", "No", "no"]
         user_choice = str(input("Would you like to generate an Extreme, Hard, or Easy password?: "))
+        user_choice = user_choice.lower()
         while user_choice not in password_choices:
             print("Invalid input, try again")
             user_choice = str(input("Would you like to generate an Extreme, Hard, or Easy password?: "))
-        if user_choice == "Extreme" or user_choice == "extreme":
+            user_choice = user_choice.lower()
+        if user_choice == user_choice == "extreme":
             password = password_generate(2)
-        elif user_choice == "Hard" or user_choice == "hard":
+        elif user_choice == "hard":
             password = password_generate(1)
-        elif user_choice == "Easy" or user_choice == "easy":
+        elif user_choice == "easy":
             password = password_generate(0)
         print(password)
         user_loop = str(input("Would you like to generate another password? (Yes or No): "))
